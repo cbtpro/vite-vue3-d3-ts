@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { useThrottleFn } from '@vueuse/core'
+import { useThrottleFn } from '@vueuse/core';
 import * as echarts from 'echarts/core';
 import { BarChart, LineChart } from 'echarts/charts';
 import {
@@ -76,14 +76,14 @@ interface IData {
   name: string;
   value: number;
 }
-const chartsCurrentData = ref<IData | undefined>();
+const chartsCurrentData = ref<IData>();
 const option: ECOption = {
   title: {
     text: props.title,
   },
   tooltip: {
     // trigger: 'axis',
-    formatter: (params) => {
+    formatter: params => {
       try {
         if (Array.isArray(params)) {
           const [data] = params;
@@ -125,32 +125,33 @@ const echartsRef = ref<HTMLDivElement>();
 let myCharts: echarts.ECharts;
 const initECharts = () => {
   if (echartsRef.value) {
-    myCharts = echarts.init(echartsRef.value, null, {
+    myCharts = echarts.init(echartsRef.value, undefined, {
       renderer: 'canvas',
     });
     if (myCharts) {
       myCharts.setOption(option);
-      myCharts.on('click', (e) => {
+      myCharts.on('click', e => {
         console.log(e);
       });
       // 鼠标滑过时变成小手
       myCharts.getZr().on('mousemove', param => {
-        const pointInPixel= [param.offsetX, param.offsetY];
-        if (myCharts.containPixel('grid',pointInPixel)) {//若鼠标滑过区域位置在当前图表范围内 鼠标设置为小手
-          myCharts.getZr().setCursorStyle('pointer')
-        }else{
-          myCharts.getZr().setCursorStyle('default')
+        const pointInPixel = [param.offsetX, param.offsetY];
+        if (myCharts.containPixel('grid', pointInPixel)) {
+          //若鼠标滑过区域位置在当前图表范围内 鼠标设置为小手
+          myCharts.getZr().setCursorStyle('pointer');
+        } else {
+          myCharts.getZr().setCursorStyle('default');
         }
-      })
+      });
       // 点击区域增大
-      myCharts.getZr().on('click', params=>{
-        const pointInPixel= [params.offsetX, params.offsetY];
-        if (myCharts.containPixel('grid',pointInPixel)) {
+      myCharts.getZr().on('click', params => {
+        const pointInPixel = [params.offsetX, params.offsetY];
+        if (myCharts.containPixel('grid', pointInPixel)) {
           const { name, value } = chartsCurrentData.value;
           // 点击的逻辑
           console.log(name, value);
         }
-      })
+      });
     }
   }
 };

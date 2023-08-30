@@ -1,4 +1,4 @@
-// Copyright 2021 peter
+// Copyright 2023 Peter Chen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,16 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * 是开发环境
- */
-export const isDev = process.env.NODE_ENV === 'development';
+import devtools from '@vue/devtools';
+import { DEVELOP_HOST, DEVELOP_PORT, isDev } from './config';
 
-export const APP_TITLE = import.meta.env.VITE_APP_TITLE;
-/**
- * 请求url前缀
- */
-export const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-export const DEVELOP_HOST = import.meta.env.VITE_DEVELOP_HOST;
-export const DEVELOP_PORT = import.meta.env.VITE_DEVELOP_PORT;
+if (isDev) {
+  devtools.connect(DEVELOP_HOST, DEVELOP_PORT);
+}

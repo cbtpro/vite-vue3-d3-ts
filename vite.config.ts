@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 
 const serverOptions: ServerOptions = {
   host: true,
+  port: 8888,
   proxy: {
     '/gateway': {
       target: 'http://127.0.0.1:3000',
