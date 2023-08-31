@@ -25,9 +25,11 @@
     "launch-editor-middleware": "^2.6.0",
     "lint-staged": "^13.2.3",
     "mock2js": "^1.0.6",
+    "pinia": "^2.1.6",
     "prettier": "2.8.8",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
+    "vue-router": "^4.2.4",
     "vue-tsc": "^1.4.2"
   },
   "lint-staged": {
